@@ -1,11 +1,12 @@
 import React from 'react'
+import ProductItem from './ProductItem';
 
 function ProductList({ productList }) {
     return (
-        <div>
+        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
             {productList.map((item, index) => (
                 <div key={index}>
-                    <h2>{item.attributes.title}</h2>
+                    <ProductItem product={item} />
                 </div>
             ))}
         </div>
