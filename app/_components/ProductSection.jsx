@@ -18,6 +18,14 @@ function ProductSection() {
     return (
         (productList &&
             <div className='px-10 md:px-20 my-10'>
+                {/* latest Items */}
+                <h2 className='font-bold text-[20px] my-3'>Latest Items</h2>
+                <ProductList productList={productList} />
+                {/* popular Items */}
+                <h2 className='font-bold text-[20px] my-3'>Popular Items</h2>
+                <ProductList productList={productList} />
+                {/* New Items */}
+                <h2 className='font-bold text-[20px] my-3'>New Items</h2>
                 <ProductList productList={productList} />
             </div>
         )
