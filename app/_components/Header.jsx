@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../../public/images/shop-logo.png'
+import logo from '../../public/images/Chef.png'
 import Image from 'next/image'
 
 function Header() {
@@ -17,30 +17,30 @@ function Header() {
                                 />
                             </svg>
                         </a> */}
-                        <Image src='/images/shop-logo.png' width={50} height={45} />
+                        <Image src='/images/Chef.png' width={40} height={40} />
                     </div>
 
                     <div className="hidden md:block">
                         <nav aria-label="Global">
                             <ul className="flex items-center gap-6 text-sm">
                                 <li>
-                                    <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> Home </a>
+                                    <a className="text-yellow-400 transition hover:text-yellow-400/75" href="/"> Home </a>
                                 </li>
 
                                 <li>
-                                    <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> Explore </a>
+                                    <a className="text-yellow-400 transition hover:text-yellow-400/75" href="/"> Explore </a>
                                 </li>
 
                                 <li>
-                                    <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> About Us </a>
+                                    <a className="text-yellow-400 transition hover:text-yellow-400/75" href="/"> About Us </a>
                                 </li>
 
                                 <li>
-                                    <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> Products </a>
+                                    <a className="text-yellow-400 transition hover:text-yellow-400/75" href="/"> Products </a>
                                 </li>
 
                                 <li>
-                                    <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> Contact Us </a>
+                                    <a className="text-yellow-400 transition hover:text-yellow-400/75" href="/"> Contact Us </a>
                                 </li>
                             </ul>
                         </nav>

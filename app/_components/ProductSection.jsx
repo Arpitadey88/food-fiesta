@@ -14,19 +14,24 @@ function ProductSection() {
             setProductList(res.data.data)
         })
     }
+    const filterdProductList = (category) => {
+        const result = productList.filter(item =>
+            item.attributes.category == category);
+        return result;
+    }
 
     return (
         (productList &&
             <div className='px-10 md:px-20 my-10'>
-                {/* latest Items */}
-                <h2 className='font-bold text-[20px] my-3'>Latest Items</h2>
-                <ProductList productList={productList} />
-                {/* popular Items */}
-                <h2 className='font-bold text-[20px] my-3'>Popular Items</h2>
-                <ProductList productList={productList} />
-                {/* New Items */}
-                <h2 className='font-bold text-[20px] my-3'>New Items</h2>
-                <ProductList productList={productList} />
+                {/* Pizza Items */}
+                <h2 className='font-bold text-[20px] my-3'>Popular Pizaa Items</h2>
+                <ProductList productList={filterdProductList('pizza')} />
+                {/* Burger Items */}
+                <h2 className='font-bold text-[20px] my-3'>Popular Burger Items</h2>
+                <ProductList productList={filterdProductList('burger')} />
+                {/* Sandwich Items */}
+                <h2 className='font-bold text-[20px] my-3'>Popular Sandwich Items</h2>
+                <ProductList productList={filterdProductList('sandwich')} />
             </div>
         )
 
