@@ -9,6 +9,8 @@ const axiosClient = axios.create({
     }
 })
 const getLatestProducts = () => axiosClient.get('/products?populate=*');
+const getProductsById = (id) => axiosClient.get('/products/' + id + '?populate=*');
 export default {
-    getLatestProducts
+    getLatestProducts,
+    getProductsById
 }
