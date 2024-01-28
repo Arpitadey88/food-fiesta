@@ -21,9 +21,9 @@ function ProductDetail({ params }) {
     return (
         <div className='p-5 py-12 px-10 md:px-28'>
             <BreadCrumb />
-            <div>
-                <ProductBanner />
-                <ProductInfo />
+            <div className='grid grid-cols-1 sm:grid-cols-2 mt-10 gap-5 sm:gap-5'>
+                <ProductBanner product={productDetail} />
+                <ProductInfo product={productDetail} />
             </div>
         </div>
 
