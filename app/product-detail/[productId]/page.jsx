@@ -1,6 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import GlobalApi from '@/app/_utils/GlobalApi'
+import BreadCrumb from '@/app/_components/BreadCrumb';
+import ProductBanner from './ProductHome/ProductBanner';
+import ProductInfo from './ProductHome/ProductInfo';
 
 
 function ProductDetail({ params }) {
@@ -16,7 +19,14 @@ function ProductDetail({ params }) {
         })
     }
     return (
-        <div>ProductDetail</div>
+        <div className='p-5 py-12 px-10 md:px-28'>
+            <BreadCrumb />
+            <div>
+                <ProductBanner />
+                <ProductInfo />
+            </div>
+        </div>
+
     )
 }
 
