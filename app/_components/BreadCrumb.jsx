@@ -1,12 +1,12 @@
 import React from 'react'
 
-function ProductInfo() {
+function BreadCrumb({ path, product }) {
     return (
 
         <nav aria-label="Breadcrumb">
             <ol className="flex items-center gap-1 text-sm text-gray-600">
                 <li>
-                    <a href="#" className="block transition hover:text-gray-700">
+                    <a href="/" className="block transition hover:text-gray-700">
                         <span className="sr-only"> Home </span>
 
                         <svg
@@ -42,7 +42,7 @@ function ProductInfo() {
                 </li>
 
                 <li>
-                    <a href="#" className="block transition hover:text-gray-700"> Shirts </a>
+                    <a href="#" className="block transition hover:text-gray-700"> {path?.split('/')[1]} </a>
                 </li>
 
                 <li className="rtl:rotate-180">
@@ -61,11 +61,12 @@ function ProductInfo() {
                 </li>
 
                 <li>
-                    <a href="#" className="block transition hover:text-gray-700"> Plain Tee </a>
+                    {/* <a href="#" className="block transition hover:text-gray-700"> {path?.split('/')[2]} </a> */}
+                    <a href="#" className="block transition hover:text-gray-700"> {product?.attributes?.title} </a>
                 </li>
             </ol>
         </nav>
     )
 }
 
-export default ProductInfo
+export default BreadCrumb

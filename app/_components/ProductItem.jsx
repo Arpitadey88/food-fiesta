@@ -1,10 +1,11 @@
 import { ChevronRightSquare } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 function ProductItem({ product }) {
     return (
-        <div>
+        <Link href={'/product-detail/' + product.id}>
             <div className='hover:border rounded-lg border-grey-300'>
                 <Image className='rounded-t-lg h-[190px] object-cover' src={product?.attributes?.banner?.data?.attributes?.url}
                     alt='banner' width={400} height={300} />
@@ -17,7 +18,7 @@ function ProductItem({ product }) {
                 </div>
             </div>
 
-        </div>
+        </Link>
     )
 }
 
