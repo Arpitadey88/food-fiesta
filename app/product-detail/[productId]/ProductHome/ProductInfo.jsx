@@ -1,4 +1,5 @@
 "use client"
+import GlobalApi from '@/app/_utils/GlobalApi';
 import { useUser } from '@clerk/nextjs'
 import { AlertOctagon, BadgeCheck, ShoppingCart } from 'lucide-react'
 import { useRouter } from 'next/navigation';
@@ -13,6 +14,20 @@ function ProductInfo({ product }) {
         if (!user) {
             router.push('/sign-in')
             return
+        }
+        else {
+            const data = {
+                data: {
+                    userName: user.fullName,
+                    email: user.primaryEmailAddress.emailAddress,
+                    products: product?.id
+                }
+            }
+            GlobalApi.addToCart(data).then(res => {
+                console.log('add to cart', res);
+            }, (error) => {
+                console.log('Error', error);
+            })
         }
     }
     return (
