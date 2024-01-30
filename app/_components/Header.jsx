@@ -2,10 +2,11 @@
 import React from 'react'
 import logo from '../../public/images/Chef.png'
 import Image from 'next/image'
-import { useUser } from '@clerk/nextjs'
+import { UserButton, useUser } from '@clerk/nextjs'
+import { ShoppingCart } from 'lucide-react'
 
 function Header() {
-    const user = useUser()
+    const { user } = useUser();
     return user && (
         <header className="bg-black">
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
@@ -49,24 +50,32 @@ function Header() {
                         </nav>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <div className="sm:flex sm:gap-4">
-                            <a
-                                className="rounded-md bg-yellow-400 px-5 py-2.5 text-sm font-medium text-white shadow"
-                                href="/"
-                            >
-                                Login
-                            </a>
 
-                            <div className="hidden sm:flex">
+                    <div className="flex items-center gap-4">
+                        {!user ?
+                            <div className="sm:flex sm:gap-4">
                                 <a
-                                    className="rounded-md bg-gray-100 px-5 py-2.5 text-sm text-yellow-400 font-medium hover:bg-yellow-400 hover:text-white"
+                                    className="rounded-md bg-yellow-400 px-5 py-2.5 text-sm font-medium text-white shadow"
                                     href="/"
                                 >
-                                    Register
+                                    Login
                                 </a>
+
+                                <div className="hidden sm:flex">
+                                    <a
+                                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm text-yellow-400 font-medium hover:bg-yellow-400 hover:text-white"
+                                        href="/"
+                                    >
+                                        Register
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                            : <div className='flex items-center gap-5'>
+                                <h2 className='flex items-center text-yellow-400 gap-1 cursor-pointer'  ><ShoppingCart />(0)</h2>
+                                <UserButton />
+                            </div>
+
+                        }
 
                         <div className="block md:hidden">
                             <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
