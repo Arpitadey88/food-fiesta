@@ -1,7 +1,20 @@
+"use client"
+import { useUser } from '@clerk/nextjs'
 import { AlertOctagon, BadgeCheck, ShoppingCart } from 'lucide-react'
+import { useRouter } from 'next/navigation';
+
 import React from 'react'
 
 function ProductInfo({ product }) {
+    const router = useRouter();
+    const { user } = useUser();
+
+    const onAddToCartClick = () => {
+        if (!user) {
+            router.push('/sign-in')
+            return
+        }
+    }
     return (
         <div>
             <div className=''>
@@ -12,7 +25,7 @@ function ProductInfo({ product }) {
             </div>
             <h2 className='text-[28px] mt-5 text-blue-600 font-medium'>$ {product?.attributes?.pricing}</h2>
             <h3 className='flex items-center gap-3 mt-5 text-gray-500 font-[13px]'>{product?.attributes?.InstantDelivery ? <BadgeCheck className='text-green-600 h-5 w-5' /> : <AlertOctagon className='text-yellow-300  h-5 w-5' />}Eligible for Instant Delivery</h3>
-            <button className='flex gap-2 p-3 px-10 mt-5 rounded-lg bg-blue-600 text-white hover:bg-blue-800'>
+            <button onClick={() => onAddToCartClick()} className='flex gap-2 p-3 px-10 mt-5 rounded-lg bg-blue-600 text-white hover:bg-blue-800'>
                 <ShoppingCart /> Add to Cart
             </button>
         </div>

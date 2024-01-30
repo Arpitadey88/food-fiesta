@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../../public/images/Chef.png'
 import Image from 'next/image'
 import { UserButton, useUser } from '@clerk/nextjs'
@@ -7,7 +7,13 @@ import { ShoppingCart } from 'lucide-react'
 
 function Header() {
     const { user } = useUser();
-    return user && (
+    const [isLogin, setIsLogin] = useState();
+    console.log('path', window.location.href);
+    useEffect(() => {
+        setIsLogin(window.location.href.toString().includes('sign-up'))
+        setIsLogin(window.location.href.toString().includes('sign-in'))
+    }, [])
+    return !isLogin && (
         <header className="bg-black">
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
@@ -56,7 +62,7 @@ function Header() {
                             <div className="sm:flex sm:gap-4">
                                 <a
                                     className="rounded-md bg-yellow-400 px-5 py-2.5 text-sm font-medium text-white shadow"
-                                    href="/"
+                                    href="/sign-in"
                                 >
                                     Login
                                 </a>
@@ -64,7 +70,7 @@ function Header() {
                                 <div className="hidden sm:flex">
                                     <a
                                         className="rounded-md bg-gray-100 px-5 py-2.5 text-sm text-yellow-400 font-medium hover:bg-yellow-400 hover:text-white"
-                                        href="/"
+                                        href="/sign-up"
                                     >
                                         Register
                                     </a>
