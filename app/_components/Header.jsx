@@ -5,16 +5,35 @@ import Image from 'next/image'
 import { UserButton, useUser } from '@clerk/nextjs'
 import { ShoppingCart } from 'lucide-react'
 import { CartContext } from '../_context/CartContext'
+import GlobalApi from '../_utils/GlobalApi'
+import Cart from './Cart'
 
 function Header() {
     const { user } = useUser();
     const [isLogin, setIsLogin] = useState();
+    const [openCart, setOpenCart] = useState(false);
     const { cart, setCart } = useContext(CartContext);
     console.log('path', window.location.href);
     useEffect(() => {
         setIsLogin(window.location.href.toString().includes('sign-up'))
         setIsLogin(window.location.href.toString().includes('sign-in'))
     }, [])
+    useEffect(() => {
+        user && getCartItem()
+    }, [user])
+    useEffect(() => {
+        setOpenCart(true)
+    }, [cart])
+    const getCartItem = () => {
+        GlobalApi.getUserCartItems(user.primaryEmailAddress.emailAddress).then(res => {
+            const result = res.data.data
+            result && result.forEach(item => {
+                setCart(cart => [...cart, item.attributes.products.data[0]])
+                console.log('user cart data', item.attributes.products);
+            });
+        })
+    }
+
     return !isLogin && (
         <header className="bg-black">
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
@@ -79,12 +98,14 @@ function Header() {
                                 </div>
                             </div>
                             : <div className='flex items-center gap-5'>
-                                <h2 className='flex items-center text-yellow-400 gap-1 cursor-pointer'  ><ShoppingCart />({cart?.length})</h2>
+                                <h2 className='flex items-center text-yellow-400 gap-1 cursor-pointer'
+                                    onClick={() => setOpenCart(!openCart)}>
+                                    <ShoppingCart />({cart?.length})</h2>
                                 <UserButton />
                             </div>
 
                         }
-
+                        {openCart && <Cart />}
                         <div className="block md:hidden">
                             <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
                                 <svg

@@ -16,6 +16,7 @@ const inter = Outfit({ subsets: ['latin'] })
 
 export default function RootLayout({ children }) {
   const [cart, setCart] = useState([]);
+
   return (
     <ClerkProvider>
       <CartContext.Provider value={{ cart, setCart }}>

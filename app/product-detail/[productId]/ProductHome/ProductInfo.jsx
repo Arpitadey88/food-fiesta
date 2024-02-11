@@ -10,7 +10,8 @@ import React, { useContext } from 'react'
 function ProductInfo({ product }) {
     const router = useRouter();
     const { user } = useUser();
-    const { cart, setCart } = useContext(CartContext);
+    const { cart, setCart } = useContext
+        (CartContext);
     const onAddToCartClick = () => {
         if (!user) {
             router.push('/sign-in')
@@ -21,7 +22,8 @@ function ProductInfo({ product }) {
                 data: {
                     userName: user.fullName,
                     email: user.primaryEmailAddress.emailAddress,
-                    products: product?.id
+                    products: [product?.id]
+
                 }
             }
             GlobalApi.addToCart(data).then(res => {
