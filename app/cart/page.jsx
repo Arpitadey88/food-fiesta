@@ -4,6 +4,11 @@ import { CartContext } from '../_context/CartContext';
 
 function Cart() {
     const { cart, setCart } = useContext(CartContext);
+    const getTotalAmount = () => {
+        cart.forEach(element => {
+            console.log(element.product?.attributes?.pricing);
+        })
+    }
     return (
         < section >
             <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -31,26 +36,13 @@ function Cart() {
                                                     <dt className="inline">{item?.product?.attributes?.category}</dt>
                                                     {/* <dd className="inline">XXS</dd> */}
                                                 </div>
-
-                                                <div>
-                                                    <dt className="inline">{item?.product?.attributes?.pricing}</dt>
-                                                    {/* <dd className="inline">White</dd> */}
-                                                </div>
                                             </dl>
                                         </div>
 
                                         <div className="flex flex-1 items-center justify-end gap-2">
-                                            <form>
-                                                <label htmlFor="Line1Qty" className="sr-only"> Quantity </label>
-
-                                                <input
-                                                    type="number"
-                                                    min="1"
-                                                    value="1"
-                                                    id="Line1Qty"
-                                                    className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-                                                />
-                                            </form>
+                                            <div>
+                                                <dt className="inline">$ {item?.product?.attributes?.pricing}</dt>
+                                            </div>
 
                                             <button className="text-gray-600 transition hover:text-red-600">
                                                 <span className="sr-only">Remove item</span>
@@ -81,24 +73,10 @@ function Cart() {
                         <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
                             <div className="w-screen max-w-lg space-y-4">
                                 <dl className="space-y-0.5 text-sm text-gray-700">
-                                    <div className="flex justify-between">
-                                        <dt>Subtotal</dt>
-                                        <dd>£250</dd>
-                                    </div>
-
-                                    <div className="flex justify-between">
-                                        <dt>VAT</dt>
-                                        <dd>£25</dd>
-                                    </div>
-
-                                    <div className="flex justify-between">
-                                        <dt>Discount</dt>
-                                        <dd>-£20</dd>
-                                    </div>
 
                                     <div className="flex justify-between !text-base font-medium">
                                         <dt>Total</dt>
-                                        <dd>£200</dd>
+                                        <dd>${getTotalAmount()}</dd>
                                     </div>
                                 </dl>
 
