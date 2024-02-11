@@ -18,17 +18,25 @@ function Header() {
         setIsLogin(window.location.href.toString().includes('sign-up'))
         setIsLogin(window.location.href.toString().includes('sign-in'))
     }, [])
+
     useEffect(() => {
         user && getCartItem()
     }, [user])
+
     useEffect(() => {
-        setOpenCart(true)
+        openCart == false && setOpenCart(true)
     }, [cart])
+
     const getCartItem = () => {
         GlobalApi.getUserCartItems(user.primaryEmailAddress.emailAddress).then(res => {
             const result = res.data.data
             result && result.forEach(item => {
-                setCart(cart => [...cart, item.attributes.products.data[0]])
+                setCart(cart => [...cart,
+                {
+                    id: item.id,
+                    product: item.attributes.products.data[0]
+                }
+                ])
                 console.log('user cart data', item.attributes.products);
             });
         })

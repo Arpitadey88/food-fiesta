@@ -28,7 +28,15 @@ function ProductInfo({ product }) {
             }
             GlobalApi.addToCart(data).then(res => {
                 console.log('add to cart', res);
-                setCart(cart => [...cart, product])
+                if (res) {
+                    setCart(cart => [...cart,
+                    {
+                        id: res?.data?.id,
+                        product: product
+                    }
+                    ])
+                }
+
             }, (error) => {
                 console.log('Error', error);
             })
