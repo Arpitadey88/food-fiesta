@@ -1,13 +1,17 @@
 "use client"
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { CartContext } from '../_context/CartContext';
 
 function Cart() {
     const { cart, setCart } = useContext(CartContext);
+    const [totalPrice, setTotalPrice] = useState();
     const getTotalAmount = () => {
+        let totalAmount = 0;
         cart.forEach(element => {
             console.log(element.product?.attributes?.pricing);
+            totalAmount = totalAmount + Number(element.product?.attributes?.pricing)
         })
+        return totalAmount;
     }
     return (
         < section >
