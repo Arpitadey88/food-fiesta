@@ -1,10 +1,12 @@
 "use client"
 import React, { useContext, useState } from 'react'
 import { CartContext } from '../_context/CartContext';
+import GlobalApi from '../_utils/GlobalApi';
+import { useUser } from '@clerk/nextjs';
 
 function Cart() {
     const { cart, setCart } = useContext(CartContext);
-    const [totalPrice, setTotalPrice] = useState();
+    const { user } = useUser();
     const getTotalAmount = () => {
         let totalAmount = 0;
         cart.forEach(element => {
@@ -12,6 +14,32 @@ function Cart() {
             totalAmount = totalAmount + Number(element.product?.attributes?.pricing)
         })
         return totalAmount;
+    }
+    const deleteCartItem = (id) => {
+        console.log('delete item', id);
+        GlobalApi.deleteUserCartItem(id).then(res => {
+            console.log(res);
+            if (res) {
+                getCartItem()
+            }
+        }, (error) => {
+            console.log(error);
+        })
+    }
+    const getCartItem = () => {
+        GlobalApi.getUserCartItems(user.primaryEmailAddress.emailAddress).then(res => {
+            const result = res.data.data
+            setCart([]);
+            result && result.forEach(item => {
+                setCart(cart => [...cart,
+                {
+                    id: item.id,
+                    product: item.attributes.products.data[0]
+                }
+                ])
+                console.log('user cart data', item.attributes.products);
+            });
+        })
     }
     return (
         < section >
@@ -48,7 +76,7 @@ function Cart() {
                                                 <dt className="inline">$ {item?.product?.attributes?.pricing}</dt>
                                             </div>
 
-                                            <button className="text-gray-600 transition hover:text-red-600">
+                                            <button className="text-gray-600 transition hover:text-red-600" onClick={() => deleteCartItem(item.id)}>
                                                 <span className="sr-only">Remove item</span>
 
                                                 <svg
@@ -83,29 +111,6 @@ function Cart() {
                                         <dd>${getTotalAmount()}</dd>
                                     </div>
                                 </dl>
-
-                                <div className="flex justify-end">
-                                    <span
-                                        className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="1.5"
-                                            stroke="currentColor"
-                                            className="-ms-1 me-1.5 h-4 w-4"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
-                                            />
-                                        </svg>
-
-                                        <p className="whitespace-nowrap text-xs">2 Discounts Applied</p>
-                                    </span>
-                                </div>
 
                                 <div className="flex justify-end">
                                     <a
