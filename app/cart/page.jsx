@@ -114,7 +114,7 @@ function Cart() {
 
                                 <div className="flex justify-end">
                                     <a
-                                        href="#"
+                                        href="/checkout"
                                         className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
                                     >
                                         Checkout
@@ -122,6 +122,7 @@ function Cart() {
                                 </div>
                             </div>
                         </div>
+                        <h2 className='text-gray-400 text-[14px]'>Note: All your order details will send on your registerd email address.</h2>
                     </div>
                 </div>
             </div>
