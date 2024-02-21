@@ -57,6 +57,7 @@ function Header() {
                             </svg>
                         </a> */}
                         <Image src='/images/Chef.png' width={40} height={40} />
+                        <h1 className='ms-1 text-lg font-medium text-yellow-500'>FoodFiesta</h1>
                     </div>
 
                     <div className="hidden md:block">

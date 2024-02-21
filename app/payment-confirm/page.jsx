@@ -18,7 +18,7 @@ function PaymentConfirm() {
 
                 <div>
                     <a
-                        className="mt-8 inline-block  rounded-full bg-yellow-400 py-4 px-8 text-sm font-bold text-white shadow-xl"
+                        className="mt-8 inline-block  rounded-full bg-yellow-500 hover:bg-yellow-400 py-4 px-8 text-sm font-bold text-white shadow-xl"
                         href="/"
                     >
                         Go To Home
