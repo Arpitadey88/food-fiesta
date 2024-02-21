@@ -3,10 +3,14 @@ import React, { useContext, useState } from 'react'
 import { CartContext } from '../_context/CartContext';
 import GlobalApi from '../_utils/GlobalApi';
 import { useUser } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 
 function Cart() {
     const { cart, setCart } = useContext(CartContext);
     const { user } = useUser();
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+
     const getTotalAmount = () => {
         let totalAmount = 0;
         cart.forEach(element => {
@@ -108,17 +112,17 @@ function Cart() {
 
                                     <div className="flex justify-between !text-base font-medium">
                                         <dt>Total</dt>
-                                        <dd>${getTotalAmount()}</dd>
+                                        <dd>${cart && getTotalAmount()}</dd>
                                     </div>
                                 </dl>
 
                                 <div className="flex justify-end">
-                                    <a
-                                        href="/checkout"
+                                    <button
+                                        onClick={() => router.push('/checkout?amount=' + getTotalAmount())}
                                         className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
                                     >
                                         Checkout
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>

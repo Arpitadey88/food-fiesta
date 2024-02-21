@@ -1,7 +1,8 @@
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import Swal from 'sweetalert2';
 import { useState } from 'react';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ amount }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [loading, setLoading] = useState(false);
@@ -31,7 +32,7 @@ const CheckoutForm = () => {
         const res = await fetch("/api/create-intent", {
             method: "POST",
             body: JSON.stringify({
-                amount: 5
+                amount: amount
             })
         })
         const clientSecret = await res.json();
@@ -40,7 +41,7 @@ const CheckoutForm = () => {
             clientSecret: clientSecret,
             elements,
             confirmParams: {
-                return_url: "http://localhost:3000/",
+                return_url: "http://localhost:3000/payment-confirm",
             },
         });
 
