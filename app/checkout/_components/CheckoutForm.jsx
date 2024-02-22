@@ -1,10 +1,16 @@
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
+import GlobalApi from '../../_utils/GlobalApi';
+import { useUser } from '@clerk/nextjs';
+import { useContext } from 'react';
+import { CartContext } from '../../_context/CartContext'
 
 const CheckoutForm = ({ amount }) => {
     const stripe = useStripe();
     const elements = useElements();
+    const { user } = useUser();
+    const { cart, setCart } = useContext(CartContext);
     const [loading, setLoading] = useState(false);
 
     const handleError = (error) => {
@@ -29,6 +35,7 @@ const CheckoutForm = ({ amount }) => {
             handleError(submitError);
             return;
         }
+        createOrder();
         const res = await fetch("/api/create-intent", {
             method: "POST",
             body: JSON.stringify({
@@ -53,6 +60,25 @@ const CheckoutForm = ({ amount }) => {
             // methods like iDEAL, your customer will be redirected to an intermediate
             // site first to authorize the payment, then redirected to the `return_url`.
         }
+    }
+    const createOrder = () => {
+        let productIds = [];
+        cart.forEach(element => {
+            productIds.push(element?.product?.id)
+        });
+        const data = {
+            data: {
+                email: user.primaryEmailAddress.emailAddress,
+                userName: user.fullName,
+                amount: amount,
+                products: productIds
+            }
+        }
+        GlobalApi.createOrder(data).then(res => {
+            if (res) {
+                console.log('order response', res);
+            }
+        })
     }
     return (
         <form onSubmit={handleSubmit}>

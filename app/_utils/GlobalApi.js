@@ -14,11 +14,13 @@ const getProductByCategory = (category) => axiosClient.get('/products?filters[ca
 const addToCart = (data) => axiosClient.post('/carts?populate=*', data)
 const getUserCartItems = (email) => axiosClient.get('http://localhost:1337/api/carts?populate[products][populate][0]=banner&filters[email][$eq]=' + email)
 const deleteUserCartItem = (id) => axiosClient.delete('/carts/' + id)
+const createOrder = (data) => axiosClient.post('/orders', data)
 export default {
     getLatestProducts,
     getProductsById,
     getProductByCategory,
     addToCart,
     getUserCartItems,
-    deleteUserCartItem
+    deleteUserCartItem,
+    createOrder
 }
