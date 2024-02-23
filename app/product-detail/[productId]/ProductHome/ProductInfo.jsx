@@ -1,17 +1,19 @@
 "use client"
-import { CartContext } from '@/app/_context/CartContext';
-import GlobalApi from '@/app/_utils/GlobalApi';
-import { useUser } from '@clerk/nextjs'
-import { AlertOctagon, BadgeCheck, ShoppingCart } from 'lucide-react'
-import { useRouter } from 'next/navigation';
-
 import React, { useContext } from 'react'
+import { CartContext } from '../../../_context/CartContext';
+import GlobalApi from '../../../_utils/GlobalApi';
+import { useRouter } from 'next/navigation';
+import { useUser } from '@clerk/nextjs';
+
+// import GlobalApi from '@/app/_utils/GlobalApi';
+// import { useUser } from '@clerk/nextjs'
+import { AlertOctagon, BadgeCheck, ShoppingCart } from 'lucide-react'
+// import { useRouter } from 'next/navigation';
 
 function ProductInfo({ product }) {
     const router = useRouter();
     const { user } = useUser();
-    const { cart, setCart } = useContext
-        (CartContext);
+    const { cart, setCart } = useContext(CartContext);
     const onAddToCartClick = () => {
         if (!user) {
             router.push('/sign-in')

@@ -1,15 +1,14 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import GlobalApi from '@/app/_utils/GlobalApi'
-import BreadCrumb from '@/app/_components/BreadCrumb';
+// import GlobalApi from '@/app/_utils/GlobalApi'
+import BreadCrumb from '../../_components/BreadCrumb';
 import ProductBanner from './ProductHome/ProductBanner';
 import ProductInfo from './ProductHome/ProductInfo';
-import ProductList from '@/app/_components/ProductList';
+import ProductList from '../../_components/ProductList';
 import { usePathname } from 'next/navigation';
 import loader from '../../../public/images/loader.gif';
 import Image from 'next/image';
-
-
+import GlobalApi from '../../_utils/GlobalApi';
 
 function ProductDetail({ params }) {
     // used to get the url path
@@ -17,7 +16,7 @@ function ProductDetail({ params }) {
 
     const [productDetail, setProductDetail] = useState();
     const [productList, setProductList] = useState([]);
-
+    console.log('object productdetail', productDetail);
     useEffect(() => {
         console.log('object path', path);
         params?.productId && getProductId();
@@ -29,6 +28,7 @@ function ProductDetail({ params }) {
             setProductDetail(res.data.data);
             getProductListByCategory(res.data.data)
         })
+
     }
     const getProductListByCategory = (product) => {
         GlobalApi.getProductByCategory(product?.attributes?.category)

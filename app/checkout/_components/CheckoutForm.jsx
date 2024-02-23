@@ -1,16 +1,16 @@
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import Swal from 'sweetalert2';
 import { useState } from 'react';
 import GlobalApi from '../../_utils/GlobalApi';
 import { useUser } from '@clerk/nextjs';
 import { useContext } from 'react';
-import { CartContext } from '../../_context/CartContext'
+import { CartContext } from '../../_context/CartContext';
+// import { CartContext } from '../../_context/CartContext'
 
 const CheckoutForm = ({ amount }) => {
     const stripe = useStripe();
     const elements = useElements();
     const { user } = useUser();
-    const { cart, setCart } = useContext(CartContext);
+    const { cart, setCart } = useContext(CartContext)
     const [loading, setLoading] = useState(false);
 
     const handleError = (error) => {
@@ -36,6 +36,7 @@ const CheckoutForm = ({ amount }) => {
             return;
         }
         createOrder();
+        sendEmail();
         const res = await fetch("/api/create-intent", {
             method: "POST",
             body: JSON.stringify({
@@ -83,6 +84,14 @@ const CheckoutForm = ({ amount }) => {
                     })
                 });
             }
+        })
+    }
+    const sendEmail = async () => {
+        const res = await fetch("/api/send-email", {
+            method: "POST",
+            body: JSON.stringify({
+                amount: amount
+            })
         })
     }
     return (
