@@ -77,6 +77,11 @@ const CheckoutForm = ({ amount }) => {
         GlobalApi.createOrder(data).then(res => {
             if (res) {
                 console.log('order response', res);
+                cart.forEach(element => {
+                    GlobalApi.deleteUserCartItem(element.id).then(result => {
+
+                    })
+                });
             }
         })
     }
