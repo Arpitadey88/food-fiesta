@@ -49,7 +49,7 @@ function Cart() {
                 </a>
 
                 <a
-                    href="#"
+                    href="/"
                     className="inline-block text-sm text-gray-500 underline underline-offset-4 transition hover:text-gray-600"
                 >
                     Continue shopping

@@ -218,7 +218,7 @@ function Footer() {
                                             />
                                         </svg>
 
-                                        <span className="flex-1 text-gray-700">foodfiesta24@gmail.com</span>
+                                        <span className="flex-1 text-gray-700">foodfiesta1708@gmail.com</span>
                                     </a>
                                 </li>
 

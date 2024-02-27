@@ -19,13 +19,9 @@ const CheckoutForm = ({ amount }) => {
     }
 
     const handleSubmit = async (event) => {
-        // We don't want to let default form submission happen here,
-        // which would refresh the page.
         event.preventDefault();
 
         if (!stripe || !elements) {
-            // Stripe.js hasn't yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
             return;
         }
         setLoading(true);
@@ -90,10 +86,13 @@ const CheckoutForm = ({ amount }) => {
         const res = await fetch("/api/send-email", {
             method: "POST",
             body: JSON.stringify({
-                amount: amount
+                email: user.primaryEmailAddress.emailAddress,
+                userName: user.fullName,
+                amount: amount,
             })
         })
     }
+    console.log("text from sendEmail", sendEmail);
     return (
         <form onSubmit={handleSubmit}>
             <div className='px-32 md:mx-[250px] mt-12'>
