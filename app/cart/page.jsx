@@ -59,7 +59,7 @@ function Cart() {
                                 cart.map((item, index) => (
                                     <li className="flex items-center gap-4" key={index}>
                                         <img
-                                            src={item?.product?.attributes?.banner?.data?.attributes?.url}
+                                            src={item?.product?.attributes?.banner?.data[0]?.attributes?.url}
                                             alt=""
                                             className="size-16 rounded object-cover"
                                         />
