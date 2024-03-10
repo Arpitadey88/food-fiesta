@@ -45,7 +45,7 @@ const CheckoutForm = ({ amount }) => {
             clientSecret: clientSecret,
             elements,
             confirmParams: {
-                return_url: "http://localhost:3000/payment-confirm",
+                return_url: "https://food-fiesta-eight.vercel.app/payment-confirm",
             },
         });
 
